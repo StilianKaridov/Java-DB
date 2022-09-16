@@ -184,3 +184,214 @@ FOREIGN KEY `movies`(`category_id`)
 REFERENCES `categories`(`id`);
 
 #Problem 12
+		#Creation of car_rental Database
+CREATE DATABASE car_rental;
+
+USE car_rental;
+
+CREATE TABLE `categories`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `category` VARCHAR(50) NOT NULL,
+    `daily_rate` INT,
+    `weekly_rate` INT,
+    `monthly_rate` INT,
+    `weekend_rate` INT
+);
+
+INSERT INTO `categories`(`category`) 
+VALUES
+('Sedan'),
+('Combi'),
+('Hetchback');
+
+CREATE TABLE `cars`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `plate_number` INT NOT NULL,
+    `make` VARCHAR(50) NOT NULL,
+    `model` VARCHAR(50) NOT NULL,
+    `car_year` INT,
+    `category_id` INT,
+    `doors` INT,
+    `picture` BLOB,
+    `car_condition` VARCHAR(100),
+    `available` BOOLEAN
+);
+
+INSERT INTO `cars`(`plate_number`, `make`, `model`) 
+VALUES
+(0000, 'BMW', 'M5'),
+(1111, 'Mercedes', 'CLS'),
+(2222, 'Audi', 'A4');
+
+ALTER TABLE `cars`
+ADD CONSTRAINT `fk_cars_categories`
+FOREIGN KEY `cars`(`category_id`)
+REFERENCES `categories`(`id`); 
+
+CREATE TABLE `employees`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `first_name` VARCHAR(50) NOT NULL,
+    `last_name` VARCHAR(50) NOT NULL,
+    `title` VARCHAR(50),
+    `notes` TEXT
+);
+
+INSERT INTO `employees`(`first_name`, `last_name`) 
+VALUES
+('Ivan', 'Ivanov'),
+('Pesho', 'Peshov'),
+('Mitko', 'Mitkov');
+
+CREATE TABLE `customers`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `driver_license_number` VARCHAR(50) NOT NULL,
+    `full_name` VARCHAR(100) NOT NULL,
+    `address` VARCHAR(50),
+    `city` VARCHAR(50),
+    `zip_code` CHAR(4),
+    `notes` TEXT
+);
+
+INSERT INTO `customers`(`driver_license_number`, `full_name`) 
+VALUES
+('1234', 'Stilian Karidov'),
+('12345', 'Todor Karidov'),
+('123456', 'Vladimir Karidov');
+
+CREATE TABLE `rental_orders`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `employee_id` INT NOT NULL,
+    `customer_id` INT NOT NULL,
+    `car_id` INT NOT NULL,
+    `car_condition` VARCHAR(100),
+    `tank_level` INT,
+    `kilometrage_start` DOUBLE(10, 1),
+    `kilometrage_end` DOUBLE(10, 1),
+    `total_kilometrage` DOUBLE(10, 1),
+    `start_date` DATE,
+    `end_date` DATE,
+    `total_days` INT,
+    `rate_applied` INT,
+    `tax_rate` INT,
+    `order_status` BOOLEAN,
+    `notes` TEXT
+);
+
+INSERT INTO `rental_orders`(`employee_id`, `customer_id`, `car_id`) 
+VALUES
+(1, 2, 3),
+(2 , 1, 3),
+(3, 2, 1);
+
+ALTER TABLE `rental_orders`
+ADD CONSTRAINT `fk_rentalorders_employees`
+FOREIGN KEY `rental_orders`(`employee_id`)
+REFERENCES `employees`(`id`),
+ADD CONSTRAINT `fk_rentalorders_customers`
+FOREIGN KEY `rental_orders`(`customer_id`)
+REFERENCES `customers`(`id`),
+ADD CONSTRAINT `fk_rentalorders_cars`
+FOREIGN KEY `rental_orders`(`car_id`)
+REFERENCES `cars`(`id`);
+
+#Problem 13
+				#Create of soft_uni Database
+CREATE DATABASE `soft_uni`;
+
+USE `soft_uni`;
+
+CREATE TABLE `towns`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE `addresses`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `address_text` VARCHAR(100) NOT NULL,
+    `town_id` INT NOT NULL
+);
+
+ALTER TABLE `addresses`
+ADD CONSTRAINT `fk_addresses_towns`
+FOREIGN KEY `addresses`(`town_id`)
+REFERENCES `towns`(`id`);
+
+CREATE TABLE `departments`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE `employees`(
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+    `first_name` VARCHAR(50) NOT NULL,
+    `middle_name` VARCHAR(50) NOT NULL,
+    `last_name` VARCHAR(50) NOT NULL,
+    `job_title` VARCHAR(50) NOT NULL,
+    `department_id` INT NOT NULL,
+    `hire_date` DATE NOT NULL,
+    `salary` DOUBLE NOT NULL,
+    `address_id` INT
+);
+
+ALTER TABLE `employees`
+ADD CONSTRAINT `fk_employees_departments`
+FOREIGN KEY `employees`(`department_id`)
+REFERENCES `departments`(`id`),
+ADD CONSTRAINT `fk_employees_addresses`
+FOREIGN KEY `employees`(`address_id`)
+REFERENCES `addresses`(`id`);
+
+INSERT INTO `towns`(`name`)
+VALUES
+('Sofia'),
+('Plovdiv'),
+('Varna'),
+('Burgas');
+
+INSERT INTO `departments`(`name`)
+VALUES
+('Engineering'),
+('Sales'),
+('Marketing'),
+('Software Development'),
+('Quality Assurance');
+
+INSERT INTO `employees`(`first_name`, `middle_name`, `last_name`,
+`job_title`, `department_id`, `hire_date`, `salary`)
+VALUES
+('Ivan', 'Ivanov', 'Ivanov', '.NET Developer', 4, '2013-02-01', 3500.00),
+('Petar', 'Petrov', 'Petrov', 'Senior Engineer', 1, '2004-03-02', 4000.00),
+('Maria', 'Petrova', 'Ivanova', 'Intern', 5, '2016-08-28', 525.25),
+('Georgi', 'Terziev', 'Ivanov', 'CEO', 2, '2007-12-09', 3000.00),
+('Peter', 'Pan', 'Pan', 'Intern', 3, '2016-08-28', 599.88);
+
+#Problem 14
+SELECT * FROM `towns`;
+SELECT * FROM `departments`;
+SELECT * FROM `employees`;
+
+#Problem 15
+SELECT * FROM `towns`
+ORDER BY `name`;
+
+SELECT * FROM `departments`
+ORDER BY `name`;
+
+SELECT * FROM `employees`
+ORDER BY `salary` DESC;
+
+#Problem 16
+SELECT `name` FROM `towns`
+ORDER BY `name`;
+
+SELECT `name` FROM `departments`
+ORDER BY `name`;
+
+SELECT `first_name`, `last_name`, `job_title`, `salary` FROM `employees`
+ORDER BY `salary` DESC;
+
+#Problem 17
+UPDATE `employees`
+SET `salary` = `salary` * 1.10; 
+
+SELECT `salary` FROM `employees`;
