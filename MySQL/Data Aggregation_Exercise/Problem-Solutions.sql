@@ -48,4 +48,96 @@ GROUP BY `deposit_group`, `magic_wand_creator`
 ORDER BY `magic_wand_creator`, `deposit_group`;
 
 # 9. Age Groups
+SELECT 
+	CASE
+		WHEN `age` <= 10 THEN '[0-10]'
+		WHEN `age` <= 20 THEN '[11-20]'
+		WHEN `age` <= 30 THEN '[21-30]'
+		WHEN `age` <= 40 THEN '[31-40]'
+		WHEN `age` <= 50 THEN '[41-50]'
+		WHEN `age` <= 60 THEN '[51-60]'
+		ELSE '[61+]'
+	END AS `age_group`,
+	COUNT(`id`) AS 'wizard_count'
+FROM `wizzard_deposits`
+GROUP BY `age_group`
+ORDER BY `wizard_count`;
+		
+# 10. First Letter
+SELECT LEFT(`first_name`, 1) AS `first_letter`
+FROM `wizzard_deposits`
+WHERE `deposit_group` = 'Troll Chest'
+GROUP BY `first_letter`
+ORDER BY `first_letter`;
 
+# 11. Average Interest
+SELECT `deposit_group`, `is_deposit_expired`, AVG(`deposit_interest`) AS `average_interest`
+FROM `wizzard_deposits`
+WHERE `deposit_start_date` > '1985-01-01'
+GROUP BY `deposit_group`, `is_deposit_expired`
+ORDER BY `deposit_group` DESC, `is_deposit_expired`;
+
+# 12. Employees Minimum Salaries
+SELECT `department_id`, MIN(`salary`) AS `minimum_salary`
+FROM `employees`
+WHERE `department_id` IN (2,5,7) AND YEAR(`hire_date`) > 1999
+GROUP BY `department_id`
+ORDER BY `department_id`;
+
+# 13. Employees Average Salaries
+CREATE TABLE `high_paid_employees` AS
+SELECT * FROM `employees`
+WHERE `salary` > 30000;
+
+DELETE FROM `high_paid_employees`
+WHERE `manager_id` = 42;
+
+UPDATE `high_paid_employees`
+SET `salary` = `salary` + 5000
+WHERE `department_id` = 1;
+
+SELECT `department_id`, AVG(`salary`) AS `avg_salary`
+FROM `high_paid_employees`
+GROUP BY `department_id`
+ORDER BY `department_id`;
+
+# 14. Employees Maximum Salaries
+SELECT `department_id`, MAX(`salary`) AS `max_salary`
+FROM `employees`
+GROUP BY `department_id`
+HAVING `max_salary` NOT IN (30000, 70000)
+ORDER BY `department_id`;
+
+# 15. Employees Count Salaries
+SELECT COUNT(`employee_id`) FROM `employees`
+WHERE `manager_id` IS NULL;
+
+# 16. 3rd Highest Salary
+SELECT DISTINCT `department_id`,
+        (
+        SELECT  DISTINCT `salary`
+        FROM    `employees` e
+        WHERE   e.`department_id` = `employees`.`department_id`
+        ORDER BY `salary` DESC
+        LIMIT 1 OFFSET 2
+        ) AS `third_highest_salary`
+FROM `employees`
+HAVING `third_highest_salary` IS NOT NULL
+ORDER BY `department_id`;
+
+# 17. Salary Challenge
+SELECT `first_name`, `last_name`, `department_id`
+FROM `employees`
+WHERE `salary` > 
+	(SELECT avg(`salary`)
+		FROM `employees` e 
+        WHERE   e.`department_id` = `employees`.`department_id`
+        GROUP BY `department_id`)
+ORDER BY `department_id`, `employee_id`
+LIMIT 10;
+
+# 18. Departments Total Salaries
+SELECT `department_id`, SUM(`salary`) AS `total_salary`
+FROM `employees`
+GROUP BY `department_id`
+ORDER BY `department_id`;
