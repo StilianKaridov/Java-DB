@@ -141,3 +141,48 @@ FROM employees
 GROUP BY department_id
 ORDER BY min_average_salary
 LIMIT 1;
+
+# 12. Highest Peaks in Bulgaria
+SELECT 
+    c.country_code, m.mountain_range, p.peak_name, p.elevation
+FROM
+    countries c
+        JOIN
+    mountains_countries mc ON c.country_code = mc.country_code
+        JOIN
+    mountains m ON mc.mountain_id = m.id
+        JOIN
+    peaks p ON m.id = p.mountain_id
+WHERE
+    p.elevation > 2835
+        AND c.country_code LIKE 'BG'
+ORDER BY p.elevation DESC;
+
+# 13. Count Mountain Ranges
+SELECT 
+    c.country_code, COUNT(m.mountain_range) 'mountain_range'
+FROM
+    mountains m
+        JOIN
+    mountains_countries c ON m.id = c.mountain_id
+WHERE
+    c.country_code IN ('BG', 'RU', 'US')
+GROUP BY c.country_code
+ORDER BY mountain_range DESC;
+
+# 14. Countries with Rivers
+
+
+# 15. Continents and Currencies
+
+
+# 16. Countries Without Any Mountains
+SELECT 
+    COUNT(country_code) - (SELECT 
+            COUNT(DISTINCT country_code)
+        FROM
+            mountains_countries) 'country_count'
+FROM
+    countries;
+
+# 17. Highest Peak and Longest River by Country
