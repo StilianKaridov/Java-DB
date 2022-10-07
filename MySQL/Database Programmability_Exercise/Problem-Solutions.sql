@@ -182,6 +182,7 @@ BEGIN
 		UPDATE accounts
         SET balance = balance + money_amount
         WHERE id = account_id;
+        COMMIT;
     END IF;
     
 END$$
@@ -201,6 +202,7 @@ BEGIN
 		THEN UPDATE accounts
         SET balance = balance - money_amount
         WHERE id = account_id;
+        COMMIT;
 	ELSE
 		ROLLBACK;
     END IF;
@@ -229,6 +231,7 @@ BEGIN
 			UPDATE accounts
 			SET balance = balance + amount
 			WHERE id = to_account_id;
+            COMMIT;
     END CASE;
 END$$
 
