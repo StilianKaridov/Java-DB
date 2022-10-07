@@ -137,7 +137,7 @@ END$$
 CALL usp_get_holders_with_balance_higher_than(7000)$$
 
 # 10. Future Value Function
-CREATE FUNCTION ufn_calculate_future_value(initial_sum DECIMAL(19, 4), yearly_interest_rate DOUBLE, number_of_years INT)
+CREATE FUNCTION ufn_calculate_future_value(initial_sum DOUBLE, yearly_interest_rate DECIMAL(19, 4), number_of_years INT)
 RETURNS DECIMAL(19, 4)
 NOT DETERMINISTIC
 READS SQL DATA
@@ -154,15 +154,121 @@ END$$
 SELECT ufn_calculate_future_value(1000, 0.5, 5)$$
 
 # 11. Calculating Interest
+CREATE PROCEDURE usp_calculate_future_value_for_account(account_id INT, interest_rate DOUBLE)
+BEGIN
+	
+    SELECT a.id 'account_id', 
+			ah.first_name, 
+            ah.last_name, 
+            a.balance 'current_balance', 
+            (SELECT ufn_calculate_future_value(a.balance, interest_rate, 5)) 'balance_in_5_years'
+    FROM account_holders ah
+    JOIN accounts a ON ah.id = a.account_holder_id
+    WHERE a.id = account_id;
+    
+END$$
 
+CALL usp_calculate_future_value_for_account(1, 0.1)$$
 
+# 12. Deposit Money
+CREATE PROCEDURE usp_deposit_money(account_id INT, money_amount DECIMAL(19,4))
+BEGIN
 
+	START TRANSACTION;
+    
+	IF(money_amount <= 0) 
+		THEN ROLLBACK;
+    ELSE 
+		UPDATE accounts
+        SET balance = balance + money_amount
+        WHERE id = account_id;
+    END IF;
+    
+END$$
 
+CALL usp_deposit_money(1, 10)$$
 
+# 13. Withdraw Money
+CREATE PROCEDURE usp_withdraw_money(account_id INT, money_amount DECIMAL(19, 4))
+BEGIN
 
+	START TRANSACTION;
+    
+    IF(money_amount > 0
+			AND
+		(SELECT balance FROM accounts
+			WHERE id = account_id) - money_amount > 0)
+		THEN UPDATE accounts
+        SET balance = balance - money_amount
+        WHERE id = account_id;
+	ELSE
+		ROLLBACK;
+    END IF;
 
+END$$
 
+CALL usp_withdraw_money(1, 50)$$
 
+# 14. Money Transfer
+CREATE PROCEDURE usp_transfer_money(from_account_id INT, to_account_id INT, amount DECIMAL(19,4))
+BEGIN
 
+	START TRANSACTION;
+    
+	CASE
+		WHEN (SELECT id FROM accounts WHERE from_account_id = id) IS NULL THEN ROLLBACK;
+		WHEN (SELECT id FROM accounts WHERE to_account_id = id) IS NULL THEN ROLLBACK;
+        WHEN amount <= 0 THEN ROLLBACK;
+        WHEN (SELECT balance FROM accounts WHERE from_account_id = id) < amount THEN ROLLBACK;
+        WHEN from_account_id = to_account_id THEN ROLLBACK;
+		ELSE
+			UPDATE accounts
+			SET balance = balance - amount
+			WHERE id = from_account_id;
+			
+			UPDATE accounts
+			SET balance = balance + amount
+			WHERE id = to_account_id;
+    END CASE;
+END$$
 
+CALL usp_transfer_money(1, 2, 10)$$
 
+# 15. Log Accounts Trigger
+CREATE TABLE logs(
+	log_id INT PRIMARY KEY AUTO_INCREMENT,
+    account_id INT,
+    old_sum DECIMAL(19, 4),
+    new_sum DECIMAL(19, 4)
+)$$
+
+CREATE TRIGGER tr_logs_accounts_balance
+AFTER UPDATE
+ON accounts
+FOR EACH ROW
+BEGIN
+
+	INSERT INTO logs(account_id, old_sum, new_sum)
+		VALUES(OLD.id, OLD.balance, NEW.balance);
+
+END$$
+
+# 16. Emails Trigger
+CREATE TABLE notification_emails(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    recipient INT,
+    subject TEXT,
+    body TEXT
+)$$
+
+CREATE TRIGGER tr_create_email_from_logs
+AFTER INSERT
+ON logs
+FOR EACH ROW
+BEGIN
+
+	INSERT INTO notification_emails(recipient, subject, body)
+		VALUES(NEW.account_id, 
+				CONCAT('Balance change for account: ', NEW.account_id), 
+                CONCAT_WS(' ', 'On', NOW(), 'your balance was changed from', NEW.old_sum, 'to', NEW.new_sum, '.'));
+END$$
