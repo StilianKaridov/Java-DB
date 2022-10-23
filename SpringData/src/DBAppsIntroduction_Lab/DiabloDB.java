@@ -48,5 +48,7 @@ public class DiabloDB {
         final int gamesCount = userGamesSet.getInt(COLUMN_LABEL_USER_GAMES_COUNT);
 
         System.out.printf(EXISTING_USER_PRINT_FORMAT, userName, firstName, lastName, gamesCount);
+
+        connection.close();
     }
 }
