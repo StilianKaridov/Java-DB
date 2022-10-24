@@ -1,4 +1,4 @@
-package DBAppsIntroduction_Lab;
+package utilsAndConstants;
 
 public enum Constants {
     ;
@@ -9,5 +9,5 @@ public enum Constants {
     public static final String PASSWORD_VALUE = "0000";
     public static final String SOFT_UNI_DATABASE_URL = "jdbc:mysql://localhost:3306/soft_uni";
     public static final String DIABLO_DATABASE_URL = "jdbc:mysql://localhost:3306/diablo";
-
+    public static final String MINIONS_DATABASE_URL = "jdbc:mysql://localhost:3306/minions_db";
 }
