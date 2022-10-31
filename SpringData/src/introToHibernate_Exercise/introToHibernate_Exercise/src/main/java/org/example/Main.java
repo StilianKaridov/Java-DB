@@ -1,4 +1,4 @@
-package org.example;
+package introToHibernate_Exercise.introToHibernate_Exercise.src.main.java.org.example;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

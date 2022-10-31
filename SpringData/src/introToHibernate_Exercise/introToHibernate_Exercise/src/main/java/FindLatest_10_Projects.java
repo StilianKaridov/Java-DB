@@ -1,4 +1,6 @@
-import entities.Project;
+package introToHibernate_Exercise.introToHibernate_Exercise.src.main.java;
+
+import introToHibernate_Exercise.introToHibernate_Exercise.src.main.java.entities.Project;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

@@ -1,4 +1,4 @@
-package entities;
+package introToHibernate_Exercise.introToHibernate_Exercise.src.main.java.entities;
 
 import javax.persistence.*;
 import java.util.Set;
