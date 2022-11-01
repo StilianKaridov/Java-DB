@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="hibernate@localhost" uuid="b114bcff-b96f-48b6-af8e-df10d9f64a75">
+    <data-source source="LOCAL" name="soft_uni" uuid="7c90c713-37ef-48d8-85df-7ab9d9a9d7fb">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/stili/Desktop/Java-DB/SpringData/src/introToHibernate_Exercise/src/main/resources/META-INF/persistence.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/hibernate</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/bills</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

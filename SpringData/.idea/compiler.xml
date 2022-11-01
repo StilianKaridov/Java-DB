@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="introtohibernate" />
+        <module name="hibernateCodeFirst_Exercise" />
         <module name="hibernateCodeFirst_Lab" />
       </profile>
     </annotationProcessing>
