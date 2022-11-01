@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/src/hibernateCodeFirst_Lab/pom.xml" />
+        <option value="$PROJECT_DIR$/src/introToHibernate_Exercise/pom.xml" />
+        <option value="$PROJECT_DIR$/src/hibernateCodeFirst_Exercise/pom.xml" />
       </list>
     </option>
   </component>

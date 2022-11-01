@@ -1,5 +1,3 @@
-package introToHibernate_Exercise.src.main.java;
-
 import javax.persistence.*;
 
 public class ChangeCasing {
