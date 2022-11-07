@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="introtohibernate" />
+        <module name="hibernateCodeFirst_Exercise" />
+        <module name="introtohibernate (1)" />
+        <module name="SpringDataIntro_Exercise" />
+        <module name="SpringDataIntro" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hibernateCodeFirst_Exercise" target="16" />
+      <module name="introtohibernate" target="16" />
+      <module name="introtohibernate (1)" target="16" />
+      <module name="SpringDataIntro" target="11" />
+      <module name="SpringDataIntro_Exercise" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="SpringDataIntro" options="-parameters" />
+      <module name="SpringDataIntro_Exercise" options="-parameters" />
+    </option>
+  </component>
+</project>
