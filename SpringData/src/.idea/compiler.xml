@@ -10,6 +10,7 @@
         <module name="hibernateCodeFirst_Exercise" />
         <module name="introtohibernate (1)" />
         <module name="SpringDataIntro_Exercise" />
+        <module name="SpringDataAdvancedQuerying" />
         <module name="SpringDataIntro" />
       </profile>
     </annotationProcessing>
@@ -17,12 +18,14 @@
       <module name="hibernateCodeFirst_Exercise" target="16" />
       <module name="introtohibernate" target="16" />
       <module name="introtohibernate (1)" target="16" />
+      <module name="SpringDataAdvancedQuerying" target="16" />
       <module name="SpringDataIntro" target="11" />
       <module name="SpringDataIntro_Exercise" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="SpringDataAdvancedQuerying" options="-parameters" />
       <module name="SpringDataIntro" options="-parameters" />
       <module name="SpringDataIntro_Exercise" options="-parameters" />
     </option>
