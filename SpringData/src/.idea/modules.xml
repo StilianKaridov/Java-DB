@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SpringDataAdvancedQuerying/SpringDataAdvancedQuerying.iml" filepath="$PROJECT_DIR$/SpringDataAdvancedQuerying/SpringDataAdvancedQuerying.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringDataAdvancedQuerying_Exercise/SpringDataAdvancedQuerying_Exercise.iml" filepath="$PROJECT_DIR$/SpringDataAdvancedQuerying_Exercise/SpringDataAdvancedQuerying_Exercise.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpringDataIntro/SpringDataIntro.iml" filepath="$PROJECT_DIR$/SpringDataIntro/SpringDataIntro.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpringDataIntro_Exercise/SpringDataIntro_Exercise.iml" filepath="$PROJECT_DIR$/SpringDataIntro_Exercise/SpringDataIntro_Exercise.iml" />
       <module fileurl="file://$PROJECT_DIR$/hibernateCodeFirst_Exercise/hibernateCodeFirst_Exercise.iml" filepath="$PROJECT_DIR$/hibernateCodeFirst_Exercise/hibernateCodeFirst_Exercise.iml" />
