@@ -10,8 +10,14 @@ import java.util.List;
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
-    @Query("SELECT a FROM Author a ORDER BY a.books.size DESC")
+    @Query(value = "select a from Author a order by a.books.size desc")
     List<Author> findAllByBooksSizeDESC();
 
     List<Author> findAuthorsByFirstNameEndingWith(String endingPattern);
+
+    @Query("SELECT concat(a.firstName, ' ', a.lastName),' - ', " +
+            " sum(b.copies) as all_book_cnt FROM Author a join a.books b " +
+            " GROUP BY a.id " +
+            "ORDER BY all_book_cnt DESC")
+    List<String> totalBookCopies();
 }

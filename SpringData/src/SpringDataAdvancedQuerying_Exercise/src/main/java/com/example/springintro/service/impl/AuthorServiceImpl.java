@@ -1,7 +1,6 @@
 package com.example.springintro.service.impl;
 
 import com.example.springintro.model.entity.Author;
-import com.example.springintro.model.entity.Book;
 import com.example.springintro.repository.AuthorRepository;
 import com.example.springintro.service.AuthorService;
 import org.springframework.stereotype.Service;
@@ -73,5 +72,17 @@ public class AuthorServiceImpl implements AuthorService {
                         a.getFirstName(),
                         a.getLastName()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> totalCountCopies() {
+        List<String> result = new ArrayList<>();
+
+        for (String str : this.authorRepository
+                .totalBookCopies()) {
+            result.add(str.replace(",", ""));
+        }
+
+        return result;
     }
 }

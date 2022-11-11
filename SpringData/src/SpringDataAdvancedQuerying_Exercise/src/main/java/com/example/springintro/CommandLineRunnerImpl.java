@@ -67,7 +67,19 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 //        printCountOfBooksWithTitleLengthGreaterThan();
 
         //10.
-        printCountOfBooksByAuthor();
+//        printCountOfBooksByAuthor();
+
+        //11.
+//        printBookInfoForGivenTitle();
+
+        //12.
+//        updateBooksCopiesByDate();
+
+        //13.
+//        deleteBooksByCopiesLessThan();
+
+        //14.
+//        getCountBooksByAuthor();
     }
 
     private void printALlBooksByAuthorNameOrderByReleaseDate(String firstName, String lastName) {
@@ -189,6 +201,61 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
     }
 
     private void printCountOfBooksByAuthor() {
+        this.authorService
+                .totalCountCopies()
+                .forEach(System.out::println);
+    }
 
+    private void printBookInfoForGivenTitle() {
+        String titleInput = this.scanner.nextLine();
+
+        System.out.println(
+                this.bookService
+                        .getBookTitle(titleInput));
+
+        this.scanner.close();
+    }
+
+    private void updateBooksCopiesByDate() {
+        String[] dateInput = this.scanner.nextLine().split(" ");
+
+        String parsedStringDate = String.join("-", dateInput);
+
+        LocalDate date = LocalDate.parse(parsedStringDate,
+                DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
+
+        int numberOfCopies = Integer.parseInt(this.scanner.nextLine());
+
+        Integer numberOfAddedCopies = this.bookService
+                .updateBookCopies(date, numberOfCopies) * numberOfCopies;
+
+        System.out.println(numberOfAddedCopies);
+
+        this.scanner.close();
+    }
+
+    private void deleteBooksByCopiesLessThan() {
+        int copies = Integer.parseInt(this.scanner.nextLine());
+
+        System.out.println(this.bookService.deleteBooksByCopiesLessThan(copies));
+
+        this.scanner.close();
+    }
+
+    private void getCountBooksByAuthor() {
+        String[] fullName = this.scanner.nextLine().split("\\s+");
+
+        String firstName = fullName[0];
+        String lastName = fullName[1];
+
+        int countOfBooks = this.bookService
+                .getCountOfBooksByAuthorFirstNameLastName(firstName, lastName);
+
+        System.out.printf("%s %s has written %d books%n",
+                firstName,
+                lastName,
+                countOfBooks);
+
+        this.scanner.close();
     }
 }

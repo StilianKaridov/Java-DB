@@ -6,6 +6,7 @@ import com.example.springintro.service.AuthorService;
 import com.example.springintro.service.BookService;
 import com.example.springintro.service.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -167,4 +168,38 @@ public class BookServiceImpl implements BookService {
         return this.bookRepository
                 .countBooksByTitleLengthGreaterThan(length);
     }
+
+    @Override
+    public String getBookTitle(String title) {
+        String[] bookInfo = this.bookRepository.getBookByTitle(title)
+                .split(",");
+
+        return String.format("%s %s %s %.2f",
+                bookInfo[0],
+                bookInfo[1],
+                bookInfo[2],
+                Double.parseDouble(bookInfo[3]));
+    }
+
+    @Transactional
+    @Override
+    public Integer updateBookCopies(LocalDate date, int copies) {
+        return this.bookRepository
+                .updateBookCopies(date, copies);
+    }
+
+    @Transactional
+    @Override
+    public Integer deleteBooksByCopiesLessThan(int copies) {
+        return this.bookRepository
+                .deleteBooksByCopiesLessThan(copies);
+    }
+
+    @Override
+    public Integer getCountOfBooksByAuthorFirstNameLastName(String firstName, String lastName) {
+        return this.bookRepository
+                .getCountOfBooksByAuthor(firstName, lastName);
+    }
+
+
 }

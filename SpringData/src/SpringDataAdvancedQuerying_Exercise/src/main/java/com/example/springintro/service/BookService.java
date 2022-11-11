@@ -33,4 +33,12 @@ public interface BookService {
     List<String> getBooksTitlesByAuthorsLastNameStartingWith(String pattern);
 
     Integer getCountOfBooksWithTitleLengthGreaterThan(int length);
+
+    String getBookTitle(String title);
+
+    Integer updateBookCopies(LocalDate date, int copies);
+
+    Integer deleteBooksByCopiesLessThan(int copies);
+
+    Integer getCountOfBooksByAuthorFirstNameLastName(String firstName, String lastName);
 }
