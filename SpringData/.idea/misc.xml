@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/src/introToHibernate_Exercise/pom.xml" />
         <option value="$PROJECT_DIR$/src/hibernateCodeFirst_Exercise/pom.xml" />
         <option value="$PROJECT_DIR$/src/SpringDataIntro/pom.xml" />
+        <option value="$PROJECT_DIR$/src/SpringDataAutoMappingObjects/pom.xml" />
       </list>
     </option>
   </component>
