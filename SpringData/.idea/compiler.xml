@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="introtohibernate" />
         <module name="hibernateCodeFirst_Exercise" />
+        <module name="SpringDataAutoMappingObjects_Exercise" />
         <module name="SpringDataAutoMappingObjects" />
         <module name="SpringDataIntro" />
         <module name="hibernateCodeFirst_Lab" />
@@ -17,6 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="SpringDataAutoMappingObjects" options="-parameters" />
+      <module name="SpringDataAutoMappingObjects_Exercise" options="-parameters" />
       <module name="SpringDataIntro" options="-parameters" />
     </option>
   </component>
