@@ -38,6 +38,14 @@ public class Main implements CommandLineRunner {
                     case LOGOUT_COMMAND -> this.userService.logOutUser();
                     case ADD_GAME_COMMAND -> this.gameService.addGame(input);
                     case EDIT_GAME_COMMAND -> this.gameService.editGame(input);
+                    case DELETE_GAME_COMMAND -> this.gameService.deleteGame(input);
+                    case SHOW_ALL_GAMES_COMMAND -> this.gameService.getAllGamesTitleAndPrice()
+                            .forEach(s -> System.out.printf("%s%n",
+                                    s.replace(",", " ")));
+                    case DETAIL_GAME_COMMAND -> System.out.println(this.gameService.getGameDetailsByTitle(input));
+                    case OWNED_GAMES_COMMAND -> this.userService.getOwnedGames()
+                            .forEach(System.out::println);
+                    case PURCHASE_GAME_COMMAND -> this.userService.purchaseGame(input);
 
                     default -> System.out.println(COMMAND_NOT_FOUND);
                 }

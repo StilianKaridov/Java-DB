@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.springdataautomappingobjects_exercise.constants.Messages.*;
@@ -111,7 +112,43 @@ public class GameServiceImpl implements GameService {
         System.out.printf(SUCCESSFULLY_EDITED_GAME, game.getTitle());
     }
 
+    @Override
+    public void deleteGame(String[] input) {
+        checkIfUserIsLogged();
+        checkIfUserIsAdmin();
 
+        long id = Long.parseLong(input[1]);
+
+        Optional<Game> optional = this.gameRepository.findById(id);
+
+        if (optional.isEmpty()) {
+            throw new IllegalStateException(INVALID_GAME_ID_MESSAGE);
+        }
+
+        Game game = optional.get();
+
+        this.gameRepository.delete(game);
+
+        System.out.printf(SUCCESSFULLY_DELETED_GAME, game.getTitle());
+    }
+
+    @Override
+    public List<String> getAllGamesTitleAndPrice() {
+        return this.gameRepository.getAllGamesTitleAndPrice();
+    }
+
+    @Override
+    public String getGameDetailsByTitle(String[] input) {
+        String title = input[1];
+
+        Optional<Game> game = this.gameRepository.findGameByTitle(title);
+
+        if (game.isEmpty()) {
+            throw new IllegalStateException(NO_GAME_TITLE);
+        }
+
+        return game.toString();
+    }
 
     private void checkIfUserIsLogged() {
         if (this.userService.getLogInUser() == null) {

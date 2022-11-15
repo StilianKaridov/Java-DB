@@ -14,4 +14,14 @@ public enum Commands {
     public static final String ADD_GAME_COMMAND = "AddGame";
 
     public static final String EDIT_GAME_COMMAND = "EditGame";
+
+    public static final String DELETE_GAME_COMMAND = "DeleteGame";
+
+    public static final String SHOW_ALL_GAMES_COMMAND = "AllGames";
+
+    public static final String DETAIL_GAME_COMMAND = "DetailGame";
+
+    public static final String OWNED_GAMES_COMMAND = "OwnedGames";
+
+    public static final String PURCHASE_GAME_COMMAND = "PurchaseGame";
 }

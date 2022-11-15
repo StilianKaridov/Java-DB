@@ -1,10 +1,17 @@
 package com.example.springdataautomappingobjects_exercise.services.user;
 
+import com.example.springdataautomappingobjects_exercise.entities.Game;
 import com.example.springdataautomappingobjects_exercise.entities.User;
 import com.example.springdataautomappingobjects_exercise.entities.dtos.RegisterUserDTO;
+import com.example.springdataautomappingobjects_exercise.repositories.GameRepository;
 import com.example.springdataautomappingobjects_exercise.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import static com.example.springdataautomappingobjects_exercise.constants.Messages.*;
 
@@ -12,11 +19,13 @@ import static com.example.springdataautomappingobjects_exercise.constants.Messag
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final GameRepository gameRepository;
     private User logInUser;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, GameRepository gameRepository) {
         this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
     }
 
     @Override
@@ -79,5 +88,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getLogInUser() {
         return logInUser;
+    }
+
+    @Override
+    public void purchaseGame(String[] input) {
+        String title = input[1];
+
+        Optional<Game> optional = this.gameRepository.findGameByTitle(title);
+
+        if (optional.isEmpty()) {
+            throw new IllegalArgumentException(NO_GAME_TITLE);
+        }
+
+        Game game = optional.get();
+
+        this.logInUser.purchaseGame(game);
+    }
+
+    @Override
+    public Set<String> getOwnedGames() {
+        Set<String> gameTitles = new HashSet<>();
+
+        for (Game g : this.logInUser.getGames()) {
+            gameTitles.add(g.getTitle());
+        }
+
+        return gameTitles;
     }
 }

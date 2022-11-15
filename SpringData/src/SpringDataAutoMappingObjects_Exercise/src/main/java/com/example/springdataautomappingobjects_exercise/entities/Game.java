@@ -113,4 +113,16 @@ public class Game {
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Title: %s%n" +
+                        "Price: %.2f%n" +
+                        "Description: %s%n" +
+                        "Release date: %s",
+                getTitle(),
+                getPrice(),
+                getDescription(),
+                getReleaseDate());
+    }
 }

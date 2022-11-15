@@ -36,4 +36,8 @@ public enum Messages {
     public static final String SUCCESSFULLY_EDITED_GAME = "Edited %s%n";
     public static final String INVALID_GAME_ID_MESSAGE = "There is no game with the given id";
 
+    //Delete game message
+    public static final String SUCCESSFULLY_DELETED_GAME = "Deleted %s%n";
+
+    public static final String NO_GAME_TITLE = "There is no game with the given title";
 }

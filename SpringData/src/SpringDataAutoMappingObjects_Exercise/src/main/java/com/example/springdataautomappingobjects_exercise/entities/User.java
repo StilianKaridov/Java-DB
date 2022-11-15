@@ -20,7 +20,7 @@ public class User {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Game> games;
 
     @Column(name = "is_admin")
@@ -42,7 +42,7 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public void addGame(Game toAdd) {
+    public void purchaseGame(Game toAdd) {
         this.games.add(toAdd);
     }
 
