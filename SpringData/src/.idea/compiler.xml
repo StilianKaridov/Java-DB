@@ -8,8 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="SpringDataAdvancedQuerying" />
         <module name="SpringDataIntro" />
+        <module name="JSONProcessing" />
         <module name="introtohibernate" />
         <module name="hibernateCodeFirst_Exercise" />
+        <module name="SpringDataAutoMappingObjects_Exercise" />
         <module name="introtohibernate (1)" />
         <module name="SpringDataAdvancedQuerying_Exercise" />
         <module name="SpringDataIntro_Exercise" />
@@ -19,16 +21,20 @@
       <module name="hibernateCodeFirst_Exercise" target="16" />
       <module name="introtohibernate" target="16" />
       <module name="introtohibernate (1)" target="16" />
+      <module name="JSONProcessing" target="11" />
       <module name="SpringDataAdvancedQuerying" target="16" />
       <module name="SpringDataAdvancedQuerying_Exercise" target="16" />
+      <module name="SpringDataAutoMappingObjects_Exercise" target="14" />
       <module name="SpringDataIntro" target="11" />
       <module name="SpringDataIntro_Exercise" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="JSONProcessing" options="-parameters" />
       <module name="SpringDataAdvancedQuerying" options="-parameters" />
       <module name="SpringDataAdvancedQuerying_Exercise" options="-parameters" />
+      <module name="SpringDataAutoMappingObjects_Exercise" options="-parameters" />
       <module name="SpringDataIntro" options="-parameters" />
       <module name="SpringDataIntro_Exercise" options="-parameters" />
     </option>

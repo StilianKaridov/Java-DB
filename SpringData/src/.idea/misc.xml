@@ -15,8 +15,10 @@
         <option value="$PROJECT_DIR$/SpringDataIntro_Exercise/pom.xml" />
         <option value="$PROJECT_DIR$/SpringDataAdvancedQuerying/pom.xml" />
         <option value="$PROJECT_DIR$/SpringDataAdvancedQuerying_Exercise/pom.xml" />
+        <option value="$PROJECT_DIR$/SpringDataAutoMappingObjects_Exercise/pom.xml" />
+        <option value="$PROJECT_DIR$/JSONProcessing/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="16" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
