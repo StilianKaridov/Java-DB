@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "order by rand() " +
             "limit 3", nativeQuery = true)
     List<User> getRandomFriends();
+
+    List<User> findAllBySoldProductsBuyerIsNotNullOrderBySoldProductsBuyerFirstName();
 }

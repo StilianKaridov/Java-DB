@@ -1,4 +1,4 @@
-package com.example.jsonprocessing.domain.dtos;
+package com.example.jsonprocessing.domain.dtos.user;
 
 import com.google.gson.annotations.Expose;
 

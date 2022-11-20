@@ -4,9 +4,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.example.jsonprocessing.constants.exceptionMessages.ExceptionsMessages.USER_LAST_NAME_LENGTH;
 
@@ -28,18 +26,20 @@ public class User {
     private int age;
 
     @OneToMany(targetEntity = Product.class, mappedBy = "seller")
-    private List<Product> soldProducts;
+    @Fetch(FetchMode.JOIN)
+    private Set<Product> soldProducts;
 
     @OneToMany(targetEntity = Product.class, mappedBy = "buyer")
-    private List<Product> boughtProducts;
+    @Fetch(FetchMode.SELECT)
+    private Set<Product> boughtProducts;
 
     @ManyToMany
     @Fetch(FetchMode.JOIN)
     private List<User> friends;
 
     public User() {
-        this.soldProducts = new ArrayList<>();
-        this.boughtProducts = new ArrayList<>();
+        this.soldProducts = new HashSet<>();
+        this.boughtProducts = new HashSet<>();
         this.friends = new ArrayList<>();
     }
 
@@ -90,27 +90,29 @@ public class User {
         this.age = age;
     }
 
-    public List<Product> getSoldProducts() {
-        return Collections.unmodifiableList(soldProducts);
+    public Set<Product> getSoldProducts() {
+        return soldProducts;
     }
 
-    public List<Product> getBoughtProducts() {
-        return Collections.unmodifiableList(boughtProducts);
+    public Set<Product> getBoughtProducts() {
+        return boughtProducts;
     }
 
     public List<User> getFriends() {
-        return Collections.unmodifiableList(friends);
+        return friends;
     }
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
     }
 
-    public void setSoldProducts(List<Product> soldProducts) {
+    public void setSoldProducts(Set<Product> soldProducts) {
         this.soldProducts = soldProducts;
     }
 
-    public void setBoughtProducts(List<Product> boughtProducts) {
+    public void setBoughtProducts(Set<Product> boughtProducts) {
         this.boughtProducts = boughtProducts;
     }
+
+
 }

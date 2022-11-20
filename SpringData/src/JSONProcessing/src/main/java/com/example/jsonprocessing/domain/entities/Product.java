@@ -1,10 +1,11 @@
 package com.example.jsonprocessing.domain.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.example.jsonprocessing.constants.exceptionMessages.ExceptionsMessages.PRODUCT_NAME_LENGTH;
 
@@ -23,16 +24,19 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne
+    @Fetch(FetchMode.JOIN)
     private User buyer;
 
     @ManyToOne
+    @Fetch(FetchMode.JOIN)
     private User seller;
 
     @ManyToMany
-    private List<Category> categories;
+    @Fetch(FetchMode.JOIN)
+    private Set<Category> categories;
 
     public Product() {
-        this.categories = new ArrayList<>();
+        this.categories = new HashSet<>();
     }
 
     public Product(String name, BigDecimal price, User seller) {
@@ -95,11 +99,15 @@ public class Product {
         this.seller = sellerId;
     }
 
-    public List<Category> getCategories() {
-        return Collections.unmodifiableList(categories);
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getSellerFullName() {
+        return this.getSeller().getFirstName() + " " + this.getSeller().getLastName();
     }
 }

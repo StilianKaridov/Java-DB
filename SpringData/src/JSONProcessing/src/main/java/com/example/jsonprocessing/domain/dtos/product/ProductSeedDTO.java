@@ -1,4 +1,4 @@
-package com.example.jsonprocessing.domain.dtos;
+package com.example.jsonprocessing.domain.dtos.product;
 
 import com.example.jsonprocessing.domain.entities.Category;
 import com.example.jsonprocessing.domain.entities.User;

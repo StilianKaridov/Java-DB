@@ -1,8 +1,8 @@
 package com.example.jsonprocessing.services.seed;
 
-import com.example.jsonprocessing.domain.dtos.CategoriesSeedDTO;
-import com.example.jsonprocessing.domain.dtos.ProductSeedDTO;
-import com.example.jsonprocessing.domain.dtos.UserSeedDTO;
+import com.example.jsonprocessing.domain.dtos.category.CategoriesSeedDTO;
+import com.example.jsonprocessing.domain.dtos.product.ProductSeedDTO;
+import com.example.jsonprocessing.domain.dtos.user.UserSeedDTO;
 import com.example.jsonprocessing.domain.entities.Category;
 import com.example.jsonprocessing.domain.entities.Product;
 import com.example.jsonprocessing.domain.entities.User;

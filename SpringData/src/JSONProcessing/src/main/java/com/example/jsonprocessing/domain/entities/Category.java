@@ -3,9 +3,7 @@ package com.example.jsonprocessing.domain.entities;
 import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.example.jsonprocessing.constants.exceptionMessages.ExceptionsMessages.CATEGORY_NAME_LENGTH;
 
@@ -21,10 +19,10 @@ public class Category {
     private String name;
 
     @ManyToMany(targetEntity = Product.class, mappedBy = "categories")
-    private List<Product> products;
+    private Set<Product> products;
 
     public Category() {
-        this.products = new ArrayList<>();
+        this.products = new HashSet<>();
     }
 
     public Category(String name) {
@@ -52,7 +50,7 @@ public class Category {
         this.name = name;
     }
 
-    public List<Product> getProducts() {
-        return Collections.unmodifiableList(products);
+    public Set<Product> getProducts() {
+        return Collections.unmodifiableSet(products);
     }
 }
