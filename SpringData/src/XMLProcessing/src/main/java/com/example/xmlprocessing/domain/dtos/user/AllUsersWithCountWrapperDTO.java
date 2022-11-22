@@ -5,7 +5,9 @@ import lombok.Setter;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,6 +27,6 @@ public class AllUsersWithCountWrapperDTO {
 
     public AllUsersWithCountWrapperDTO(List<UserWithAttributesDTO> users) {
         this.users = users;
-        this.count = users.size();
+        this.count = this.users.size();
     }
 }

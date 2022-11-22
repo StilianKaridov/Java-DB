@@ -26,5 +26,5 @@ public class UserWithAttributesDTO {
     private int age;
 
     @XmlElement(name = "sold-products")
-    private List<SoldProductsWithCountDTO> soldProducts;
+    private SoldProductsWithCountDTO soldProducts;
 }

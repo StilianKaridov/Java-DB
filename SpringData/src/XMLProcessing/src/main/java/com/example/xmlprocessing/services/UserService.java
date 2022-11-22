@@ -6,6 +6,7 @@ import com.example.xmlprocessing.domain.dtos.user.UserWithAttributesDTO;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
 
@@ -13,5 +14,5 @@ public interface UserService {
 
     List<UserDTO> usersWithMoreThanOneProductSold() throws JAXBException;
 
-    List<UserWithAttributesDTO> usersWithProducts() throws JAXBException;
+    Set<UserWithAttributesDTO> usersWithProducts() throws JAXBException;
 }

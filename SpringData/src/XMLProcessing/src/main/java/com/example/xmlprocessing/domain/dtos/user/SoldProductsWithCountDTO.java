@@ -13,11 +13,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SoldProductsWithCountDTO {
 
-    @XmlAttribute
-    private int count;
-
     @XmlElement(name = "product")
     private List<ProductDTO> products;
+
+    @XmlAttribute
+    private int count;
 
     public SoldProductsWithCountDTO() {
         this.products = new ArrayList<>();
@@ -25,6 +25,6 @@ public class SoldProductsWithCountDTO {
 
     public SoldProductsWithCountDTO(List<ProductDTO> products) {
         this.products = products;
-        this.count = products.size();
+        this.count = this.products.size();
     }
 }

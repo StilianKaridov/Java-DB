@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.example.xmlprocessing.constants.FilePaths.*;
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
         List<UserDTO> users = this.userRepository
                 .findAllBySoldProductsBuyerIsNotNullOrderBySoldProductsBuyerFirstName()
                 .stream()
-                .map(u->mapper.map(u, UserDTO.class))
+                .map(u -> mapper.map(u, UserDTO.class))
                 .collect(Collectors.toList());
 
         AllUsersWrapperDTO allUsersWrapperDTO = new AllUsersWrapperDTO(users);
@@ -75,15 +76,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserWithAttributesDTO> usersWithProducts() throws JAXBException {
-        List<UserWithAttributesDTO> users = this.userRepository
+    public Set<UserWithAttributesDTO> usersWithProducts() throws JAXBException {
+        Set<UserWithAttributesDTO> users = this.userRepository
                 .findAllBySoldProductsBuyerIsNotNullOrderBySoldProductsBuyerLastName()
                 .stream()
-                .map(u->mapper.map(u, UserWithAttributesDTO.class))
-                .sorted((u1, u2)->Integer.compare(u2.getSoldProducts().size(), u1.getSoldProducts().size()))
-                .collect(Collectors.toList());
+                .map(u -> mapper.map(u, UserWithAttributesDTO.class))
+                .collect(Collectors.toSet());
 
-        AllUsersWithCountWrapperDTO wrapperDTO = new AllUsersWithCountWrapperDTO(users);
+        List<UserWithAttributesDTO> sortedUsers =
+                users
+                        .stream()
+                        .sorted((u1, u2) -> Integer.compare(u2.getSoldProducts().getCount(), u1.getSoldProducts().getCount()))
+                        .collect(Collectors.toList());
+
+
+        AllUsersWithCountWrapperDTO wrapperDTO = new AllUsersWithCountWrapperDTO(sortedUsers);
 
         JAXBContext jaxbContext = JAXBContext.newInstance(AllUsersWithCountWrapperDTO.class);
 
