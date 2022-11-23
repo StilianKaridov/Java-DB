@@ -5,6 +5,7 @@ import com.example.xmlprocessing.productShop.services.ProductService;
 import com.example.xmlprocessing.productShop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;

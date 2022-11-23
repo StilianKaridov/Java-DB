@@ -1,11 +1,9 @@
-package com.example.xmlprocessing.productShop.config;
+package com.example.xmlprocessing.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import java.util.Scanner;
 
 @Configuration

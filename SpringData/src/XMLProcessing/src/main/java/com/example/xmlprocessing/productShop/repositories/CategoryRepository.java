@@ -17,7 +17,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             "limit 3", nativeQuery = true)
     Set<Category> getRandomCategories();
 
-    @Query("select new com.example.xmlprocessing.domain.dtos.category.CategoryDTO" +
+    @Query("select new com.example.xmlprocessing.productShop.domain.dtos.category.CategoryDTO" +
             "(c.name, count(p.id), avg(p.price), sum(p.price)) " +
             "from Product p " +
             "join p.categories c " +
