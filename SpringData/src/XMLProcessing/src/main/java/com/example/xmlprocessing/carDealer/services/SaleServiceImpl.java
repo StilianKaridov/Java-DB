@@ -1,17 +1,29 @@
 package com.example.xmlprocessing.carDealer.services;
 
+import com.example.xmlprocessing.carDealer.domain.dtos.sale.SaleDTO;
 import com.example.xmlprocessing.carDealer.domain.dtos.sale.SaleSeedDTO;
+import com.example.xmlprocessing.carDealer.domain.dtos.sale.SaleWrapperDTO;
 import com.example.xmlprocessing.carDealer.domain.entities.Car;
 import com.example.xmlprocessing.carDealer.domain.entities.Customer;
+import com.example.xmlprocessing.carDealer.domain.entities.Part;
 import com.example.xmlprocessing.carDealer.domain.entities.Sale;
 import com.example.xmlprocessing.carDealer.repositories.SaleRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Service;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+
+import static com.example.xmlprocessing.carDealer.constants.FilePaths.SALES_DISCOUNTS_PATH;
 
 @Service
 public class SaleServiceImpl implements SaleService {
@@ -56,6 +68,48 @@ public class SaleServiceImpl implements SaleService {
 
             this.saleRepository.saveAllAndFlush(salesToInsert);
         }
+    }
+
+    @Override
+    public List<SaleDTO> getAllSalesWithDiscount() throws IOException, JAXBException {
+        TypeMap<Sale, SaleDTO> typeMap = mapper.createTypeMap(Sale.class, SaleDTO.class);
+
+        typeMap.addMappings(m -> m.map(src -> src.getCustomer().getName(),
+                SaleDTO::setCustomerName));
+
+        List<SaleDTO> sales = this.saleRepository
+                .findAll()
+                .stream()
+                .map(typeMap::map)
+                .collect(Collectors.toList());
+
+        for (SaleDTO s : sales) {
+            List<Part> parts = s.getCar().getParts();
+            double price = parts
+                    .stream()
+                    .mapToDouble(p -> p.getPrice().doubleValue())
+                    .sum();
+
+            s.setPrice(new BigDecimal(price));
+
+            double priceWithDiscount = price - (s.getDiscountPercentage() / 100) * price;
+            s.setPriceWithDiscount(new BigDecimal(priceWithDiscount));
+        }
+
+        FileWriter fileWriter = new FileWriter(SALES_DISCOUNTS_PATH);
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(SaleWrapperDTO.class);
+
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        SaleWrapperDTO wrapperDTO = new SaleWrapperDTO(sales);
+
+        marshaller.marshal(wrapperDTO, fileWriter);
+
+        fileWriter.close();
+
+        return sales;
     }
 
     private double getRandomDiscountPercentage(double[] percentages) {

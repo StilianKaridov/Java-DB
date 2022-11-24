@@ -1,6 +1,6 @@
 package com.example.xmlprocessing.carDealer.services;
 
-import com.example.xmlprocessing.carDealer.domain.dtos.customer.CustomerSeedWrapperDTO;
+import com.example.xmlprocessing.carDealer.domain.dtos.customer.*;
 import com.example.xmlprocessing.carDealer.domain.entities.Customer;
 import com.example.xmlprocessing.carDealer.repositories.CustomerRepository;
 import org.modelmapper.ModelMapper;
@@ -9,14 +9,17 @@ import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.example.xmlprocessing.carDealer.constants.FilePaths.CUSTOMERS_XML_PATH;
+import static com.example.xmlprocessing.carDealer.constants.FilePaths.*;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -58,5 +61,45 @@ public class CustomerServiceImpl implements CustomerService {
         long customerId = random.nextInt(29);
 
         return this.customerRepository.findById(customerId + 1).get();
+    }
+
+    @Override
+    public Set<CustomerDTO> orderedCustomers() throws IOException, JAXBException {
+        Set<CustomerDTO> customers = this.customerRepository.getAllOrderByBirthDateAndYoungDriver();
+
+        FileWriter fileWriter = new FileWriter(ORDERED_CUSTOMERS_PATH);
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(CustomerWrapperDTO.class);
+
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        CustomerWrapperDTO wrapperDTO = new CustomerWrapperDTO(customers);
+
+        marshaller.marshal(wrapperDTO, fileWriter);
+
+        fileWriter.close();
+
+        return customers;
+    }
+
+    @Override
+    public List<CustomerSalesDTO> customersWithAtLeastOneBoughtCar() throws IOException, JAXBException {
+        List<CustomerSalesDTO> customers = this.customerRepository.findAllWithAtLeastOneBoughtCar();
+
+        FileWriter fileWriter = new FileWriter(CUSTOMER_TOTAL_SALES_PATH);
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(CustomerSalesWrapperDTO.class);
+
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        CustomerSalesWrapperDTO wrapperDTO = new CustomerSalesWrapperDTO(customers);
+
+        marshaller.marshal(wrapperDTO, fileWriter);
+
+        fileWriter.close();
+
+        return customers;
     }
 }

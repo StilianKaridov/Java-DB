@@ -1,6 +1,6 @@
 package com.example.xmlprocessing.carDealer.services;
 
-import com.example.xmlprocessing.carDealer.domain.dtos.car.CarSeedWrapperDTO;
+import com.example.xmlprocessing.carDealer.domain.dtos.car.*;
 import com.example.xmlprocessing.carDealer.domain.entities.Car;
 import com.example.xmlprocessing.carDealer.domain.entities.Part;
 import com.example.xmlprocessing.carDealer.repositories.CarRepository;
@@ -11,15 +11,18 @@ import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.example.xmlprocessing.carDealer.constants.FilePaths.CARS_XML_PATH;
+import static com.example.xmlprocessing.carDealer.constants.FilePaths.*;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -77,5 +80,51 @@ public class CarServiceImpl implements CarService {
         return this.carRepository.findById(carId + 1).get();
     }
 
+    @Override
+    public List<CarDTO> getAllCarsFromToyota(String make) throws IOException, JAXBException {
+        List<CarDTO> cars = this.carRepository
+                .findByMakeOrderByModelAscTravelledDistanceDesc(make)
+                .stream()
+                .map(c -> mapper.map(c, CarDTO.class))
+                .collect(Collectors.toList());
 
+        FileWriter fileWriter = new FileWriter(TOYOTA_CARS_PATH);
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(CarWrapperDTO.class);
+
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        CarWrapperDTO wrapperDTO = new CarWrapperDTO(cars);
+
+        marshaller.marshal(wrapperDTO, fileWriter);
+
+        fileWriter.close();
+
+        return cars;
+    }
+
+    @Override
+    public List<CarWithPartsDTO> getAllCarsNecessaryInfo() throws IOException, JAXBException {
+        List<CarWithPartsDTO> cars = this.carRepository
+                .findAll()
+                .stream()
+                .map(c->mapper.map(c, CarWithPartsDTO.class))
+                .collect(Collectors.toList());
+
+        FileWriter fileWriter = new FileWriter(CARS_WITH_PARTS_PATH);
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(CarWithPartsWrapperDTO.class);
+
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        CarWithPartsWrapperDTO carWrapperDTO = new CarWithPartsWrapperDTO(cars);
+
+        marshaller.marshal(carWrapperDTO, fileWriter);
+
+        fileWriter.close();
+
+        return cars;
+    }
 }

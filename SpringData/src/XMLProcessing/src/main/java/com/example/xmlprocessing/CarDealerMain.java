@@ -28,11 +28,23 @@ public class CarDealerMain implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        seedSuppliers();
-        seedParts();
-        seedCars();
-        seedCustomers();
-        seedSales();
+//        seedSuppliers();
+//        seedParts();
+//        seedCars();
+//        seedCustomers();
+//        seedSales();
+
+//        orderedCustomers();
+
+//        getAllCarsMadeFromToyota();
+
+//        getLocalSuppliers();
+
+//        carsWithTheirListOfParts();
+
+//        totalSalesByCustomer();
+
+        salesWithAppliedDiscount();
     }
 
     private void seedSuppliers() throws JAXBException, IOException {
@@ -53,5 +65,29 @@ public class CarDealerMain implements CommandLineRunner {
 
     private void seedSales() {
         this.saleService.seedSales();
+    }
+
+    private void orderedCustomers() throws JAXBException, IOException {
+        this.customerService.orderedCustomers();
+    }
+
+    private void getAllCarsMadeFromToyota() throws JAXBException, IOException {
+        this.carService.getAllCarsFromToyota("Toyota");
+    }
+
+    private void getLocalSuppliers() throws JAXBException, IOException {
+        this.supplierService.getLocalSuppliers();
+    }
+
+    private void carsWithTheirListOfParts() throws JAXBException, IOException {
+        this.carService.getAllCarsNecessaryInfo();
+    }
+
+    private void totalSalesByCustomer() throws JAXBException, IOException {
+        this.customerService.customersWithAtLeastOneBoughtCar();
+    }
+
+    private void salesWithAppliedDiscount() throws JAXBException, IOException {
+        this.saleService.getAllSalesWithDiscount();
     }
 }
