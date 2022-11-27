@@ -18,6 +18,7 @@
         <module name="SpringDataAdvancedQuerying_Exercise" />
         <module name="SpringDataIntro_Exercise" />
         <module name="SoftWeaterForecast" />
+        <module name="RealEstateAgency" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,6 +26,7 @@
       <module name="introtohibernate" target="16" />
       <module name="introtohibernate (1)" target="16" />
       <module name="JSONProcessing" target="11" />
+      <module name="RealEstateAgency" target="16" />
       <module name="SoftWeaterForecast" target="16" />
       <module name="SpringDataAdvancedQuerying" target="16" />
       <module name="SpringDataAdvancedQuerying_Exercise" target="16" />
@@ -37,6 +39,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="JSONProcessing" options="-parameters" />
+      <module name="RealEstateAgency" options="-parameters" />
       <module name="SoftWeaterForecast" options="-parameters" />
       <module name="SpringDataAdvancedQuerying" options="-parameters" />
       <module name="SpringDataAdvancedQuerying_Exercise" options="-parameters" />

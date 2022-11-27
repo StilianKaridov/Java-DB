@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JSONProcessing/JSONProcessing.iml" filepath="$PROJECT_DIR$/JSONProcessing/JSONProcessing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ExamPreparation/RealEstateAgency/RealEstateAgency.iml" filepath="$PROJECT_DIR$/ExamPreparation/RealEstateAgency/RealEstateAgency.iml" />
       <module fileurl="file://$PROJECT_DIR$/ExamPreparation/SoftWeaterForecast/SoftWeaterForecast.iml" filepath="$PROJECT_DIR$/ExamPreparation/SoftWeaterForecast/SoftWeaterForecast.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpringDataAdvancedQuerying/SpringDataAdvancedQuerying.iml" filepath="$PROJECT_DIR$/SpringDataAdvancedQuerying/SpringDataAdvancedQuerying.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpringDataAdvancedQuerying_Exercise/SpringDataAdvancedQuerying_Exercise.iml" filepath="$PROJECT_DIR$/SpringDataAdvancedQuerying_Exercise/SpringDataAdvancedQuerying_Exercise.iml" />
