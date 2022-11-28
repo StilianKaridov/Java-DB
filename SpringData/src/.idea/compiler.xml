@@ -7,17 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="XMLProcessing" />
         <module name="SpringDataAdvancedQuerying" />
-        <module name="SpringDataIntro" />
         <module name="JSONProcessing" />
-        <module name="introtohibernate" />
         <module name="hibernateCodeFirst_Exercise" />
         <module name="SpringDataAutoMappingObjects_Exercise" />
+        <module name="SoftWeaterForecast" />
+        <module name="XMLProcessing" />
+        <module name="PlayerFinder" />
+        <module name="SpringDataIntro" />
+        <module name="introtohibernate" />
         <module name="introtohibernate (1)" />
         <module name="SpringDataAdvancedQuerying_Exercise" />
         <module name="SpringDataIntro_Exercise" />
-        <module name="SoftWeaterForecast" />
         <module name="RealEstateAgency" />
       </profile>
     </annotationProcessing>
@@ -26,6 +27,7 @@
       <module name="introtohibernate" target="16" />
       <module name="introtohibernate (1)" target="16" />
       <module name="JSONProcessing" target="11" />
+      <module name="PlayerFinder" target="16" />
       <module name="RealEstateAgency" target="16" />
       <module name="SoftWeaterForecast" target="16" />
       <module name="SpringDataAdvancedQuerying" target="16" />
@@ -39,6 +41,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="JSONProcessing" options="-parameters" />
+      <module name="PlayerFinder" options="-parameters" />
       <module name="RealEstateAgency" options="-parameters" />
       <module name="SoftWeaterForecast" options="-parameters" />
       <module name="SpringDataAdvancedQuerying" options="-parameters" />
