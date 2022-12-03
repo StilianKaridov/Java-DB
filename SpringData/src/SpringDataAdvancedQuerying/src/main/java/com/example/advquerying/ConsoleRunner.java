@@ -1,4 +1,4 @@
-package com.example.advquerying;
+package SpringDataAdvancedQuerying.src.main.java.com.example.advquerying;
 
 import com.example.advquerying.entities.Size;
 import com.example.advquerying.services.IngredientService;
