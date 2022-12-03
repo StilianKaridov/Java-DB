@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/ExamPreparation/CarService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ExamPreparation/CarService/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/SpringDataAutoMappingObjects/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/SpringDataAutoMappingObjects_Exercise/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/SpringDataIntro/src/main/java" charset="UTF-8" />
@@ -8,7 +10,5 @@
     <file url="file://$PROJECT_DIR$/src/hibernateCodeFirst_Exercise/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/hibernateCodeFirst_Lab/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/hibernateCodeFirst_Lab/src/main/resources" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/Car  Repair Service _Skeleton/skeleton/src/main/java" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/Car  Repair Service _Skeleton/skeleton/src/main/resources" charset="UTF-8" />
   </component>
 </project>
